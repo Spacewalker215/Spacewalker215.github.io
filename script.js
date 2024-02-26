@@ -87,15 +87,15 @@ if('speechSynthesis' in window){
             const speakingSPEED = 0.2 + 0.6 * (1 - SPEED / 1000); // Adjust as needed for speaking rate
             const DELAY_BEFORE_NEXT_QUESTION = 1000; // Adjust this value as needed
 
-            // let shuffledIndexes = shuffle(Array.from({ length: questions.length }, (_, i) => i));
+            let shuffledIndexes = shuffle(Array.from({ length: questions.length }, (_, i) => i));
             // Just the orginal array
-            let ogIndexes = Array.from({ length: questions.length }, (_, i) => i)
+            // let ogIndex = Array.from({ length: questions.length }, (_, i) => i)
             let currentIndex = 0;
 
             displayNextQuestion();
 
             document.addEventListener('keydown', function startAnimation(event) {
-                if (event.key === ' ' && ogIndexes.length > 0 && playing) {
+                if (event.key === ' ' && shuffledIndexes.length > 0 && playing) {
                     inputField.style.display = 'block';
                     inputField.style.backgroundColor = '';
                     responseText.style.display = 'block';
@@ -108,7 +108,7 @@ if('speechSynthesis' in window){
 
             function displayNextQuestion() {
                 setTimeout(() => {
-                    const index = ogIndexes[currentIndex];
+                    const index = shuffledIndexes[currentIndex];
                     const words = questions[index].split(/\s+/);
                     //Resetting the values to their orginal
                     textContainer.innerHTML = '';
@@ -197,7 +197,7 @@ if('speechSynthesis' in window){
                     document.removeEventListener('keydown', checkResponse);
 
                     // Move to the next question
-                    currentIndex = (currentIndex + 1) % ogIndexes.length;
+                    currentIndex = (currentIndex + 1) % shuffledIndexes.length;
                     document.addEventListener('keydown', function nextQ(event) {
                         if (event.key == ' ') displayNextQuestion();
                         document.removeEventListener('keydown', nextQ);
@@ -208,13 +208,13 @@ if('speechSynthesis' in window){
             }
             
             //Shuffling
-            /*function shuffle(array) {
+            function shuffle(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [array[i], array[j]] = [array[j], array[i]];
                 }
                 return array;
-            }*/
+            }
         }
     });
     function finishGame(){
