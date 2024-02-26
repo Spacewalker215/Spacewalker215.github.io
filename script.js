@@ -190,6 +190,9 @@ if('speechSynthesis' in window){
                             responseText.textContent = correctAnswer;
                         }, 2000);
                     } else {
+                        setTimeout(function () {
+                            responseText.textContent = "Correct: "+correctAnswer;
+                        }, 2000);
                         correct++;
                     }
 
