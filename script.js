@@ -20,7 +20,7 @@ if('speechSynthesis' in window){
         const textField = document.querySelector('#text');
         textField.style.opacity = 100;
 
-        textField.innerHTML = "Welcome to Buzzo, a certamen bot which will develope your skills. To get started please click the gear and select the difficulty of the questions."
+        textField.innerHTML = "Welcome to Buzzo, a certamen bot which will develop your skills. To get started please click the gear and select the difficulty of the questions."
         
         document.querySelector('#difficulty').oninput = () => {
             document.querySelector('#difficultyValue').textContent = document.querySelector('#difficulty').value;
@@ -77,7 +77,8 @@ if('speechSynthesis' in window){
             const responseText = document.querySelector('.response-label');
             const questionInfo = document.querySelector('.questionInfo');
             const answerInfo = document.querySelector('.answerInfo');
-            
+            const answeringfield = document.querySelector('.answeringfield');
+
             synth.cancel()
 
             inputField.style.display = 'none';
@@ -99,7 +100,7 @@ if('speechSynthesis' in window){
                     inputField.style.display = 'block';
                     inputField.style.backgroundColor = '';
                     responseText.style.display = 'block';
-                    answerInfo.style.display = 'block';
+                    answeringfield.style.display = 'block';
                     questionInfo.style.display = 'none'
                     textContainer.style.display = 'none';
                     synth.cancel()
@@ -121,6 +122,7 @@ if('speechSynthesis' in window){
                     inputField.style.display = 'none';
                     responseText.style.display = 'none';
                     answerInfo.style.display = 'none';
+                    answeringfield.style.display = 'none';
                     questionInfo.style.display = 'block';
 
                     numberOfQuestionsComplete ++;
@@ -175,6 +177,10 @@ if('speechSynthesis' in window){
 
                     // Calculate the similarity between userResponse and correctAnswer
                     const similarity = stringSimilarity.compareTwoStrings(userResponse, correctAnswer);
+
+                    // Hiding and showing proper messages on screen
+                    answerInfo.style.display = 'block';
+                    answeringfield.style.display = 'none';
 
                     // Set a threshold for similarity (e.g., 60%)
                     const isCorrect = similarity >= 0.6;
